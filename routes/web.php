@@ -18,22 +18,19 @@ use Illuminate\Support\Facades\URL;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-//PostController Route
-Route::get('get_post', [PostController::class, 'sendPosts']);
-
 //UserController
-Route::get('/sign-up/request', [UserController::class, 'SignUp']);
+Route::post('/sign-up/request', [UserController::class, 'SignUp']);
 
-
+Route::post('login/request', [UserController::class, 'Login']);
 
 // Route::get('/hello-blade', function () {
 //     return view('hello')
 //     ->with('name', 'Tâm')
 //     ->with('job', 'Intern IT');
 // });
-Route::get('/hello-blade', function () {
-    return view('hello', ['name' => 'tâm', 'job' => 'IT']);
-});
+// Route::get('/hello-blade', function () {
+//     return view('hello', ['name' => 'tâm', 'job' => 'IT']);
+// });
 
 // Route::get('/toform', function () {
 //     return view('form',[]);
@@ -53,12 +50,12 @@ Route::get('/hello-blade', function () {
 // )->where('user_name', '[A-Za-z]+');
 
 // Register the route for all method in UserController
-Route::controller(UserController::class)->group(function () {
-    Route::get('/controller/demo', 'Demo');
-    Route::get('/controller/index', 'Index');
-});
+// Route::controller(UserController::class)->group(function () {
+//     Route::get('/controller/demo', 'Demo');
+//     Route::get('/controller/index', 'Index');
+// });
 
-Route::get('inspect-header', [UserController::class, 'InspectHeader']);
+// Route::get('inspect-header', [UserController::class, 'InspectHeader']);
 
 // Route::get('/form/name', [UserController::class, 'GetName']);
 // Route::get('/form/name', function (Request $request) {
@@ -67,25 +64,25 @@ Route::get('inspect-header', [UserController::class, 'InspectHeader']);
 //         'message' => 'Bạn đã gửi: ' . $request->query('name')
 //     ]);
 // });
-Route::get('form/name', function (Request $request) {
-    $name = $request->string('name')->trim();
-    return 'Tên sau khi dùng trim(): ' . $name;
-});
-// Register the route for PhotoController
-Route::resource('photos', PhotoController::class);
+// Route::get('form/name', function (Request $request) {
+//     $name = $request->string('name')->trim();
+//     return 'Tên sau khi dùng trim(): ' . $name;
+// });
+// // Register the route for PhotoController
+// Route::resource('photos', PhotoController::class);
 
-Route::resources([
-    'photos' =>  PhotoController::class
-]);
+// Route::resources([
+//     'photos' =>  PhotoController::class
+// ]);
 // Redirect route: uri is photos will redirect to /user
-Route::redirect('/photos', '/user');
+// Route::redirect('/photos', '/user');
 
 // View Routes
-Route::view('//', 'welcome', []);
+// Route::view('//', 'welcome', []);
 
-Route::view('/hello', 'hello', []);
+// Route::view('/hello', 'hello', []);
 
-Route::view('/toform', 'form');
+// Route::view('/toform', 'form');
 
 Route::view('/sign-up', 'signup');
 

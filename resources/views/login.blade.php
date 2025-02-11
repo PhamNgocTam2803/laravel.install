@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Page</title>
+    <title>Login Page</title>
     <style>
         input {
             border-radius: 10px;
@@ -29,7 +29,7 @@
 
 <body>
     <h1 style="text-align: center">Login Page</h1>
-    <form action="" method="post" style="margin: 20px auto; width: 50vw; font-size: 1.5rem">
+    <form id="login-form" action="/login/request" method="POST" style="margin: 20px auto; width: 50vw; font-size: 1.5rem">
         @csrf
         <div style="margin: 30px auto; width: 40vw">
             <div class="username" style="margin: 50px auto">
@@ -41,10 +41,28 @@
                 <input id="password" name="password" type="password" placeholder="password here">
             </div>
         </div>
-
         <button type="submit">LOGIN</button>
-
+        <div class="message">
+            @if (isset($message))
+            <script>
+                alert("{{$message}}");
+            </script>
+            @endif
+        </div>
     </form>
+
 </body>
+<script>
+    const login = document.getElementById('login-form');
+    const username = document.getElementById('username');
+    const password = document.getElementById('password');
+    login.addEventListener("submit", function(event) {
+        if (!username.value || !password.value) {
+            event.preventDefault();
+            alert("Cần điền đầy đủ thông tin");
+            return;
+        }
+    })
+</script>
 
 </html>

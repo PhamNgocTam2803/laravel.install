@@ -129,5 +129,12 @@
                 </div>
             </div>
         </div>
+        <div class="message">
+        @if (isset($message))
+        <script>
+            alert("{{$message}}");
+        </script>
+        @endif
+        </div>
     </body>
 </html>

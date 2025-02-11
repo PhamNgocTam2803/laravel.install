@@ -51,7 +51,14 @@
         </div>
         <!--  Button -->
         <button id="submit" type="submit">SIGN UP</button>
-
+        <!-- Thông báo từ server trả về -->
+        <div class="message">
+            @if (isset($message))
+            <script>
+                alert("{{$message}}");
+            </script>
+            @endif
+        </div>
     </form>
 </body>
 <script>
@@ -61,6 +68,11 @@
     const re_password = document.getElementById('re-password');
 
     submit.addEventListener("submit", function(event) {
+        if (!username.value || !password.value || !re_password.value) {
+            event.preventDefault();
+            alert('Cần điều đầy đủ thông tin trước khi gửi form');
+            return;
+        }
         if (password.value !== re_password.value) {
             event.preventDefault();
             alert('Bạn cần kiểm tra lại mật khẩu vì chúng không khớp nhau');
