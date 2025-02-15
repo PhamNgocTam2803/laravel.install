@@ -23,67 +23,25 @@ Route::post('/sign-up/request', [UserController::class, 'SignUp']);
 
 Route::post('login/request', [UserController::class, 'Login']);
 
-// Route::get('/hello-blade', function () {
-//     return view('hello')
-//     ->with('name', 'Tâm')
-//     ->with('job', 'Intern IT');
-// });
-// Route::get('/hello-blade', function () {
-//     return view('hello', ['name' => 'tâm', 'job' => 'IT']);
-// });
+Route::get('/', [UserController::class, 'CheckAuth'])->name('check_auth');
 
-// Route::get('/toform', function () {
-//     return view('form',[]);
-// });
-// 
-// Route::get('/user/{id}', function (string $id_user) {
-//     return 'User with the id is: ' . $id_user;
-// })->where('id','.*');
-// });
-//
+Route::get('/logout', [UserController::class, 'Logout']);
 
-// Route::get(
-//     '/user/{user_name?}',
-//     [function (?string $username = 'Phạm Ngọc Tâm') {
-//         return 'User name is: ' . $username;
-//     }]
-// )->where('user_name', '[A-Za-z]+');
+// Route::get('/assign_role',[UserController::class, 'assignRole']);
 
-// Register the route for all method in UserController
-// Route::controller(UserController::class)->group(function () {
-//     Route::get('/controller/demo', 'Demo');
-//     Route::get('/controller/index', 'Index');
-// });
+//Middleware route group to check role
+Route::middleware('auth')->controller(UserController::class)->group(function () {
+    Route::get('/admin_role', 'checkAdmin');
+    Route::get('/user_role', 'checkUser');
+    Route::get('/super_admin_role', 'checkSuperAdmin');
+});
 
-// Route::get('inspect-header', [UserController::class, 'InspectHeader']);
 
-// Route::get('/form/name', [UserController::class, 'GetName']);
-// Route::get('/form/name', function (Request $request) {
-//     return response()->json([
-//         'success' => true,
-//         'message' => 'Bạn đã gửi: ' . $request->query('name')
-//     ]);
-// });
-// Route::get('form/name', function (Request $request) {
-//     $name = $request->string('name')->trim();
-//     return 'Tên sau khi dùng trim(): ' . $name;
-// });
-// // Register the route for PhotoController
-// Route::resource('photos', PhotoController::class);
-
-// Route::resources([
-//     'photos' =>  PhotoController::class
-// ]);
-// Redirect route: uri is photos will redirect to /user
-// Route::redirect('/photos', '/user');
-
-// View Routes
-// Route::view('//', 'welcome', []);
-
-// Route::view('/hello', 'hello', []);
-
-// Route::view('/toform', 'form');
+//Views
+Route::view('/auth_fail', 'auth_fail');
 
 Route::view('/sign-up', 'signup');
 
 Route::view('/login', 'login');
+
+Route::view('/home', 'home')->middleware('auth');

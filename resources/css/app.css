@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@source "../views";
+
+@layer base {
+    * {
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+}
